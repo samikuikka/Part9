@@ -24,11 +24,11 @@ const parseArgumentList = (args: Array<string>) : exerciseValues => {
 
     return {
         target: Number(args[2]),
-        array: args.filter((n, i) => i >= 3).map( n => Number(n))
+        array: args.filter((_n, i) => i >= 3).map( n => Number(n))
     };
 };
 
-const calculateExercises = (hours: Array<number>, target: number): Result => {
+export const calculateExercises = (hours: Array<number>, target: number): Result => {
     const periodLength: number = hours.length;
     const trainingDays: number = hours.reduce((accumulator, current) => {
         if( current === 0 ) return accumulator;

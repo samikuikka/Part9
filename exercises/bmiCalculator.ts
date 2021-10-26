@@ -7,7 +7,7 @@ interface MultiplyValues {
     value2: number;
 }
       
-const parseArguments = (args: Array<string>): MultiplyValues => {
+export const parseArguments = (args: Array<string>): MultiplyValues => {
     if (args.length < 4) throw new Error('Not enough arguments');
     if (args.length > 4) throw new Error('Too many arguments');
       
@@ -46,8 +46,8 @@ export const calculateBmi = (height: number, weight: number) : Category => {
 };
 
 try {
-    const { value1, value2 } = parseArguments(process.argv);
-    console.log(calculateBmi(value1, value2));
+    //const { value1, value2 } = parseArguments(process.argv);
+    //console.log(calculateBmi(value1, value2));
 } catch( error: unknown) {
     let errorMessage = 'Something bad happened.';
     if(error instanceof Error) {
