@@ -22,7 +22,7 @@ const parseArguments = (args: Array<string>): MultiplyValues => {
     }
 }
 
-const calculateBmi = (height: number, weight: number) : Category => {
+export const calculateBmi = (height: number, weight: number) : Category => {
 
     const m: number = height / 100
     const bmi: number = weight / (m*m);
