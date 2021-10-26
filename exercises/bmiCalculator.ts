@@ -1,7 +1,6 @@
-
 type Category = "Underweight (Severe thinness)" | "Underweight (Moderate thinness)"	| "Underweight (Mild thinness)"
     | "Normal range (healthy weight)" | "Overweight (Pre-obese)" | "Obese (Class I)"
-    | "Obese (Class II)" | "Obese (Class III)"
+    | "Obese (Class II)" | "Obese (Class III)";
 
 interface MultiplyValues {
     value1: number;
@@ -16,15 +15,15 @@ const parseArguments = (args: Array<string>): MultiplyValues => {
         return {
           value1: Number(args[2]),
           value2: Number(args[3])
-        }
+        };
     } else {
         throw new Error('Provided values were not numbers!');
     }
-}
+};
 
 export const calculateBmi = (height: number, weight: number) : Category => {
 
-    const m: number = height / 100
+    const m: number = height / 100;
     const bmi: number = weight / (m*m);
 
     if( bmi < 16 ) {
@@ -44,13 +43,13 @@ export const calculateBmi = (height: number, weight: number) : Category => {
     } else {
         return "Obese (Class III)";
     }
-}
+};
 
 try {
     const { value1, value2 } = parseArguments(process.argv);
-    console.log(calculateBmi(value1, value2))
+    console.log(calculateBmi(value1, value2));
 } catch( error: unknown) {
-    let errorMessage = 'Something bad happened.'
+    let errorMessage = 'Something bad happened.';
     if(error instanceof Error) {
       errorMessage += ' Error: ' + error.message;
     }
