@@ -10,6 +10,8 @@ export interface PatientsEntry {
     occupation: string
 }
 
+export type NewPatientEntry = Omit<PatientsEntry, | 'id'>;
+
 export interface DiagnosisEntry {
     code: string,
     name: string,
