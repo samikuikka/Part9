@@ -10,7 +10,7 @@ const getPatients = (): Pick<PatientsEntry, 'id' | 'name' | 'dateOfBirth' | 'gen
 
 const addPatient = ( entry: NewPatientEntry ): PatientsEntry => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    const id = uuid() as string;
+    const id = uuid();
     const newEntry = {
       id: id,
       ...entry
