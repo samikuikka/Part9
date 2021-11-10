@@ -1,14 +1,15 @@
 import React from 'react';
-import { CourseArray } from '../types';
+import { CourseProps } from '../types';
+import Part from './Part'
 
-const Content = ({props}: CourseArray) => {
+const Content = ({courseParts}: CourseProps) => {
     return (
         <div>
-            {props.map(course => {
+            {courseParts.map(course => {
                 return(
-                    <p key={course.name}>
-                        {course.name} {course.exerciseCount}
-                    </p>
+                <div key={course.name}>
+                    <Part  course={course} />
+                </div>
                 )
             })}
         </div>
