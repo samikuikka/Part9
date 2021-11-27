@@ -4,8 +4,13 @@ import {v1 as uuid} from 'uuid';
 
 const patients:  Array<PatientsEntry> = patientsData as Array<PatientsEntry>;
 
-const getPatients = (): Pick<PatientsEntry, 'id' | 'name' | 'dateOfBirth' | 'gender' | 'occupation'>[] => {
-    return patients.map( ({id, name, dateOfBirth, gender, occupation}) => ({ id, name, dateOfBirth, gender, occupation}));
+const getPatients = (): Pick<PatientsEntry, 'id' | 'name' | 'dateOfBirth' | 'gender' | 'occupation' | 'entries'>[] => {
+    return patients.map( ({id, name, dateOfBirth, gender, occupation, entries}) => ({ id, name, dateOfBirth, gender, occupation, entries}));
+};
+
+const getPatient = (id: string): PatientsEntry | undefined => {
+  const patient = patients.find(p => p.id  === id);
+  return patient;
 };
 
 const addPatient = ( entry: NewPatientEntry ): PatientsEntry => {
@@ -22,5 +27,6 @@ const addPatient = ( entry: NewPatientEntry ): PatientsEntry => {
 
 export default {
     getPatients,
+    getPatient,
     addPatient
 };
