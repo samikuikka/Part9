@@ -3,7 +3,7 @@ import {
     useParams
   } from "react-router-dom";
 import { PatientParams, Patient } from "../types";
-import { useStateValue } from "../state";
+import { useStateValue, setPatient } from "../state";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
 import GenderIcon from "../components/GenderIcon";
@@ -20,7 +20,7 @@ const PatientPage = () => {
             if(!patient || patient.id !== id) {
                 try {
                     const {data: newPatient } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-                    dispatch({ type: "SET_PATIENT", payload: newPatient});
+                    dispatch(setPatient(newPatient));
                     
                 } catch(error) {
                     console.error("error");
@@ -40,7 +40,6 @@ const PatientPage = () => {
         );
     }
 
-    console.log(patient.gender);
 
     return (
         <div>
