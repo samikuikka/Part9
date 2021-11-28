@@ -18,3 +18,11 @@ export interface Patient {
   ssn?: string;
   dateOfBirth?: string;
 }
+
+export type PatientParams = {
+  id: string;
+};
+
+export type GenderParams = {
+  gender: string;
+};
