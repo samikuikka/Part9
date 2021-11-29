@@ -1,4 +1,4 @@
-import { Entry, Gender, NewPatientEntry } from './types';
+import { Entry, Gender, NewPatientEntry} from './types';
 
 const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
@@ -50,6 +50,13 @@ const parseGender = (gender: unknown): Gender => {
     return gender;
 };
 
+const parseEntry = (entries: Array<Entry>): Array<Entry> => {
+    if(!entries.some( entry => ['Hospital', 'OccupationalHealthcare', 'HealthCheck'].includes(entry.type))) {
+        throw new Error('Wrong entry type');
+    }
+    return entries;
+};
+
 type Fields = { name : unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown, entries: Array<Entry>};
 
 const toNewPatientEntry = ({name, dateOfBirth, ssn, gender, occupation, entries } : Fields): NewPatientEntry => {
@@ -59,7 +66,7 @@ const toNewPatientEntry = ({name, dateOfBirth, ssn, gender, occupation, entries 
         ssn: parseString(ssn),
         gender: parseGender(gender),
         occupation: parseString(occupation),
-        entries: entries
+        entries: parseEntry(entries)
     };
 
     return newEntry;
