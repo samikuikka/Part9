@@ -52,6 +52,20 @@ const PatientPage = () => {
                 date of birth: {patient.dateOfBirth} <br/>
                 id: {patient.id}
             </p>
+            <h2>entries</h2>
+                {patient.entries.map( entry => {
+                    return (
+                        <div key={entry.id}>
+                            {entry.date} {entry.description}
+                            <ul>
+                                {entry.diagnosisCodes
+                                    ? entry.diagnosisCodes.map( code => <li key={code}>{code}</li>)
+                                    : null }
+                            </ul>
+                        </div>
+                        
+                    );
+                })}
             
             
             
