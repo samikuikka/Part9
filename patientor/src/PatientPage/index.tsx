@@ -7,6 +7,7 @@ import { useStateValue, setPatient, setDiagnoses } from "../state";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
 import GenderIcon from "../components/GenderIcon";
+import EntryDetails from "../components/EntryDetails";
 
 //import { Icon } from 'semantic-ui-react';
 
@@ -54,6 +55,7 @@ const PatientPage = () => {
         );
     }
 
+    //if diagnoses not loaded use this format
     if(Object.keys(diagnoses).length === 0) {
         return (
             <div>
@@ -84,19 +86,8 @@ const PatientPage = () => {
         );
     }
 
-    
-    return (
-        <div>
-            <h1>{patient.name} 
-              <GenderIcon gender={patient.gender as string}/>
-            </h1>
-            <p>
-                ssn: {patient.ssn ? patient.ssn : "undefined"} <br/>
-                occupation: {patient.occupation} <br/>
-                date of birth: {patient.dateOfBirth} <br/>
-                id: {patient.id}
-            </p>
-            <h2>entries</h2>
+    /*
+    <h2>entries</h2>
                 {patient.entries.map( entry => {
                     return (
                         <div key={entry.id}>
@@ -110,6 +101,27 @@ const PatientPage = () => {
                         
                     );
                 })}
+        </div>*/
+
+    // diagnoses and patient info both loaded
+    return (
+        <div>
+            <h1>{patient.name} 
+              <GenderIcon gender={patient.gender as string}/>
+            </h1>
+            <p>
+                ssn: {patient.ssn ? patient.ssn : "undefined"} <br/>
+                occupation: {patient.occupation} <br/>
+                date of birth: {patient.dateOfBirth} <br/>
+                id: {patient.id}
+            </p>
+            <h2>entries</h2>
+            { patient.entries.map( entry => {
+                return (
+                    <EntryDetails key={entry.id} entry={entry} />
+                );
+            })}
+            
         </div>
     );
 };
