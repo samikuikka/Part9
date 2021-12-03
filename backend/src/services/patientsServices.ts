@@ -45,7 +45,7 @@ const addEntry = (entry: hospitalFields | occupationalFields | healthCheckFields
     }
     return p;
   });
-  return patient;
+  return newEntry;
 };
 
 
