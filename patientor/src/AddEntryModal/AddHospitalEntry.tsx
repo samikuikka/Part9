@@ -4,6 +4,8 @@ import { useStateValue } from '../state';
 import { Field, Formik, Form } from 'formik';
 import { Button, Grid } from 'semantic-ui-react';
 import { DiagnosisSelection, TextField } from '../AddPatientModal/FormField';
+import * as Yup from 'yup';
+
 
 export type HospitalEntryValues = Omit<HospitalEntry, 'id'>;
 
@@ -28,28 +30,16 @@ const AddEntryForm = ({ onSubmit, onCancel }: Props) => {
         }
       }}
       onSubmit={onSubmit}
-      validate={values => {
-        const requiredError = "Field is required";
-        const errors: { [field: string]: string } = {};
-        if(!values.description) {
-            errors.description = requiredError;
-        }
-        if(!values.date) {
-            errors.date = requiredError;
-        }
-        if(!values.specialist) {
-            errors.specialist = requiredError;
-        }
-        if(values.type !== "Hospital") {
-            errors.type = "Wrong type!";
-        }
-        if(!values.discharge.date) {
-            errors.discharge = requiredError;
-        }
-        if(!values.discharge.criteria) {
-            errors.discharge = requiredError;
-        }
-      }}
+      validationSchema={Yup.object().shape({
+        description: Yup.string().required('Required'),
+        date: Yup.date().required('Required'),
+        specialist: Yup.string().required('Required'),
+        type: Yup.string().oneOf(['Hospital']).required('Required'),
+        discharge: Yup.object().shape({
+            date: Yup.date().required('Required'),
+            criteria: Yup.string().required('Required')
+        })
+      })}
     >
       {({ isValid, dirty, setFieldValue, setFieldTouched }) => {
         return (

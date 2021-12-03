@@ -20,9 +20,14 @@ const PatientPage = () => {
     const [ {patient, diagnoses}, dispatch] = useStateValue();
     
     const [ modalOpen, setModalOpen] = React.useState<boolean>(false);
-    
+    const [error, setError] = React.useState<string | undefined>();
+
+
     const openModal = (): void => setModalOpen(true);
-    const closeModal = (): void => setModalOpen(false);
+    const closeModal = (): void => {
+        setModalOpen(false);
+        setError(undefined);
+    };
 
     const submitNewEntry = async (values: HospitalEntryValues) => {
         try {
@@ -32,6 +37,7 @@ const PatientPage = () => {
             closeModal();
         } catch(e) {
             console.error("ERROR! ", e);
+            setError(e.response?.data?.error || "Unknown error");
         }
 
     };
@@ -100,10 +106,10 @@ const PatientPage = () => {
                 modalOpen={modalOpen}
                 onSubmit={submitNewEntry}
                 onClose={closeModal}
+                error={error}
             />
             <Button onClick={() => openModal()}>Add New Entry</Button>
             <h2>entries</h2>
-            {console.log('patient is: ', patient)}
             { patient.entries.map( entry => {
                 return (
                     <EntryDetails key={entry.id} entry={entry} />
