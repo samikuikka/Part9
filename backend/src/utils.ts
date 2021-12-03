@@ -1,4 +1,10 @@
-import { Entry, Gender, NewPatientEntry} from './types';
+import {  Entry, Gender, HealthCheckEntry, HospitalEntry, NewPatientEntry, OccupationalHealthcareEntry} from './types';
+
+export const assertNever = (value: never): never => {
+    throw new Error(
+      `Unhandled discriminated union member: ${JSON.stringify(value)}`
+    );
+  };
 
 const isString = (text: unknown): text is string => {
     return typeof text === 'string' || text instanceof String;
@@ -71,5 +77,50 @@ const toNewPatientEntry = ({name, dateOfBirth, ssn, gender, occupation, entries 
 
     return newEntry;
 };
+
+export type hospitalFields = Omit<HospitalEntry, 'id'>;
+export type healthCheckFields = Omit<HealthCheckEntry, 'id'>;
+export type occupationalFields = Omit<OccupationalHealthcareEntry, 'id'>;
+
+export type entryFields = hospitalFields | healthCheckFields | occupationalFields;
+
+export const toNewHospitalEntry = ({description, date, specialist, diagnosisCodes, type, discharge}: hospitalFields) => {
+  const newEntry: hospitalFields = {
+    description: parseString(description),
+    date: parseString(date),
+    specialist: parseString(specialist),
+    diagnosisCodes: diagnosisCodes,
+    type: type,
+    discharge: discharge
+  } ;
+  return newEntry;
+};
+
+export const toNewOccupationalEntry = ({description, date, specialist, diagnosisCodes, type, employerName, sickLeave}: occupationalFields) => {
+    const newEntry: occupationalFields = {
+        description: parseString(description),
+        date: parseString(date),
+        specialist: parseString(specialist),
+        diagnosisCodes: diagnosisCodes,
+        type: type,
+        employerName: parseString(employerName),
+        sickLeave: sickLeave
+    };
+    return newEntry;
+};
+
+export const toNewHealthCheckEntry = ({description, date, specialist, diagnosisCodes, type, healthCheckRating}: healthCheckFields) => {
+    const newEntry: healthCheckFields = {
+        description: parseString(description),
+        date: parseString(date),
+        specialist: parseString(specialist),
+        diagnosisCodes: diagnosisCodes,
+        type: type,
+        healthCheckRating: healthCheckRating
+    };
+    return newEntry;
+};
+
+
 
 export default toNewPatientEntry;
