@@ -32,7 +32,6 @@ const EntryDetails: React.FC<{entry: Entry}> = ({ entry }) => {
     }, [dispatch]);
 
     if(Object.keys(diagnoses).length === 0) return null;
-    
     switch(entry.type) {
         case "Hospital":
             return <HospitalEntryInfo entry={entry} diagnoses={diagnoses} />;
